@@ -1,22 +1,47 @@
-# 🚀 The beginning
-My career in technology began in 2020 with Minecraft server management and plugin configuration. This experience provided me with a basic understanding of networking, ports, and server administration. What started as basic server maintenance quickly evolved into a greediness for money (was 24/7 thinking on how to make quick money) . My first project was a Chat Snoofer — a custom plugin designed to monitor server chat and capture players' IP addresses via Discord webhooks, which marked my first step into ilegallity
+# 🛡️ ARP Spoofing Detector (Batch Edition)
+
+# ⚠️ Disclaimer
+
+This project is for educational purposes only. It is designed to demonstrate how the Address Resolution Protocol (ARP) can be monitored to detect Man-in-the-Middle (MitM) attacks. Understanding these concepts is vital for network security and defense research
 .
-# 🌑 How i got into the Illegal side
-As my skills progressed, I moved into illegal side of Discord. This era was defined by me being much much greedier, so i started doing A4A services and Personal info selling ( it didn't make much cash but it still was some cash )
+# 🛠️ Project Overview
 
-# 🛠️ The Toolkit & Migration
-Just now, I decided to migrate my entire library of tools from an old GitBucket account to GitHub. I realized that my code shouldn't just "lie around" in private archives but should be showcased as a thing to be proud of.
+The ARP Spoofing Detector is a lightweight Batch script that monitors your system's ARP cache in real-time. ARP spoofing is a common technique where an attacker tricks a network into thinking their device is the router by "poisoning" the ARP table
+. This tool identifies these discrepancies by comparing your router's current MAC address against a known "safe" physical address
+.
+**Key Features**
+Real-Time Cache Monitoring: Continuously parses the output of the arp -a command to track network mappings
+.
+MAC Address Verification: Uses advanced string filtering to isolate the physical address of your gateway and verify its integrity
+.
+Visual Alert System: Automatically changes the console color to red and triggers a warning if a MAC address mismatch is detected
+.
+Mitigation Advice: Provides the specific command needed to "lock" your ARP entry and prevent further spoofing
+.
 
-My repository now has all the tools a hacker should have, such as:
+# ⚙️ Technical Logic
 
-# SMB Brute Forcer: #
-A tool that automates dictionary attacks against the SMB protocol using system error levels to verify success
+The script leverages core Windows networking utilities and Batch processing techniques:
+Data Extraction: It utilizes the arp -a command to view all IP-to-Physical address mappings on your interface
+.
+Advanced Filtering: Using the for /f loop with specific tokens and delimiters, the script extracts only the physical address (MAC) associated with your router's IP
+.
+Comparison Logic: The script performs a string comparison between the %currentMAC% retrieved from the network and the %safeMAC% provided during setup.
+Static Enforcement: If a discrepancy is found, it recommends creating a static entry using the arp -s command, which ensures your computer ignores malicious ARP updates
+.
 
-# WinRAR Password Cracker: #
-A batch-based automation of 7-Zip (7z.exe) that attacks a file using a PG method ( passwordguessing)
+# 🛡️ How to Protect Your Network
 
-# IP GeoLocator (C#): #
-A professional .NET console application that parses JSON data from public APIs to reveal city, country, and precise coordinates of a user
-
-# Dark Puller: #
-A command-line sniffer that automates T-Shark to capture personal info simply by calling someone
+Understanding the "Man-in-the-Middle" attack is the first step toward defense
+. To stay secure:
+Create Static ARP Entries: For critical devices like your router, use arp -s [IP] [MAC] to prevent cache poisoning
+.
+Enable HTTPS: Encrypted traffic (HTTPS) helps protect your data even if an attacker successfully becomes a middleman, as they cannot read the encrypted packets
+.
+Use Monitoring Tools: Tools like ARPwatch or this script can alert you the moment a MAC address for a specific IP changes
+.
+Router Security: Enable features like Dynamic ARP Inspection (DAI) in your router settings to validate ARP packets before they reach your device
+.
+Stack: Batch Scripting, Windows ARP Utility
+. Concept: Network Forensics & MitM Defense
+.
